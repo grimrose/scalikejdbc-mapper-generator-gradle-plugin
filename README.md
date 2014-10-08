@@ -1,6 +1,8 @@
 ScalikeJDBC Mapper Generator Gradle Plugin
 ============================================
 
+[![Build Status](https://travis-ci.org/grimrose/scalikejdbc-mapper-generator-gradle-plugin.svg?branch=master)](https://travis-ci.org/grimrose/scalikejdbc-mapper-generator-gradle-plugin)
+
 Gradle Plugin for ScalikeJDBC Mapper Generator http://scalikejdbc.org/
 
 ## License
