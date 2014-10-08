@@ -1,0 +1,64 @@
+apply plugin: 'groovy'
+apply plugin: 'scala'
+apply plugin: 'idea'
+
+project.ext {
+    group = 'org.grimrose.gradle'
+    version = '0.1' + '-SNAPSHNOT'
+
+    jdkVersion = '1.7'
+    scalaVersion = '2.11'
+    scalaFullVersion = "${scalaVersion}.2"
+    scalikejdbcVersion = '2.1.2'
+    h2Version = '1.4.181'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+
+    // scalikejdbc
+    compile "org.scala-lang:scala-library:$scalaFullVersion"
+
+    compile "org.scalikejdbc:scalikejdbc_$scalaVersion:$scalikejdbcVersion"
+    compile "org.scalikejdbc:scalikejdbc-config_$scalaVersion:$scalikejdbcVersion"
+    compile "org.scalikejdbc:scalikejdbc-mapper-generator-core_$scalaVersion:$scalikejdbcVersion"
+    runtime 'ch.qos.logback:logback-classic:1.1.2'
+    testCompile "org.scalikejdbc:scalikejdbc-test_$scalaVersion:$scalikejdbcVersion"
+    testCompile "org.scalatest:scalatest_$scalaVersion:2.2.2"
+    testRuntime "org.scala-lang.modules:scala-xml_$scalaVersion:1.0.2"
+
+    testCompile 'junit:junit:4.11'
+
+    testCompile "com.h2database:h2:$h2Version"
+
+}
+
+sourceCompatibility = targetCompatibility = 1.7
+
+tasks.withType(AbstractCompile) { options.encoding = 'UTF-8' }
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.useAnt = false
+    scalaCompileOptions.additionalParameters = ["-feature", "-Xlint", "-language:_", "-deprecation", "-unchecked", "-Xfatal-warnings"]
+}
+
+wrapper {
+    gradleVersion = '2.1'
+}
+
+idea {
+    project {
+        jdkName = jdkVersion
+        languageLevel = jdkVersion
+    }
+}
+
+test {
+    exclude '**/*$*'
+    testLogging { exceptionFormat "full" }
+}
