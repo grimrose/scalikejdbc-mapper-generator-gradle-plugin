@@ -8,7 +8,7 @@ Gradle Plugin for ScalikeJDBC Mapper Generator http://scalikejdbc.org/
 ## License
 
 Copyright 2012 Kazuhiro Sera
-Copyright 2013 grimrose.
+Copyright 2014 grimrose.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this work except in compliance with the License.
