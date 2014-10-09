@@ -1,11 +1,16 @@
-apply plugin: 'groovy'
-apply plugin: 'scala'
-apply plugin: 'idea'
+
+plugins {
+    id 'groovy'
+    id 'scala'
+    id 'idea'
+    id 'maven'
+    id 'com.jfrog.bintray' version '0.6'
+}
+
+group = 'org.grimrose.gradle'
+version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "")
 
 project.ext {
-    group = 'org.grimrose.gradle'
-    version = '0.1' + '-SNAPSHNOT'
-
     jdkVersion = '1.7'
     scalaVersion = '2.11'
     scalaFullVersion = "${scalaVersion}.2"
