@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.grimrose.gradle:scalikejdbc-mapper-generator-gradle-plugin:0.1-SNAPSHOT"
+        classpath "com.h2database:h2:1.4.177"
+    }
+}
+
+plugins {
+    id 'scala'
+    id 'idea'
+    id 'application'
+}
+
+apply plugin: 'org.grimrose.gradle.scalikejdbc'
+
+repositories {
+    jcenter()
+}
+
+project.ext {
+    scalikejdbcVersion = '2.1.2'
+}
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.2'
+
+    compile "org.scalikejdbc:scalikejdbc_2.11:$scalikejdbcVersion"
+    testCompile "org.scalikejdbc:scalikejdbc-test_2.11:$scalikejdbcVersion"
+    compile "org.scalikejdbc:scalikejdbc-syntax-support-macro_2.11:$scalikejdbcVersion"
+    runtime "org.slf4j:slf4j-simple:1.7.7"
+    compile "com.h2database:h2:1.4.177"
+
+    testCompile 'org.scalatest:scalatest_2.11:2.1.5'
+    testRuntime 'org.scala-lang.modules:scala-xml_2.11:1.0.2'
+    testCompile "org.specs2:specs2-core:2.4.4"
+
+    testCompile 'junit:junit:4.11'
+}
+
+sourceCompatibility = targetCompatibility = 1.7
+
+tasks.withType(AbstractCompile) { options.encoding = 'UTF-8' }
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.useAnt = false
+    scalaCompileOptions.additionalParameters = ["-feature", "-Xlint", "-language:_", "-deprecation", "-unchecked", "-Xfatal-warnings"]
+}
+
+wrapper {
+    gradleVersion = '2.1'
+}
+
+mainClassName = 'initializer'
