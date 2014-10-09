@@ -7,6 +7,8 @@ import scala.language.existentials
 
 class ScalikeJDBCMapperGeneratorPlugin extends Plugin[Project] {
 
+  val group = "ScalikeJDBC Mapper Generator"
+
   var project: Project = _
 
   override def apply(project: Project) = {
@@ -73,6 +75,7 @@ class ScalikeJDBCMapperGeneratorPlugin extends Plugin[Project] {
   def makeTask[T <: Task](project: Project, name: String)(configure: (T) => Unit)(implicit m: Manifest[T]): T = {
     val map = Map("type" -> m.runtimeClass)
     val t = project.task(map.asJava, name).asInstanceOf[T]
+    t.setGroup(group)
     configure(t)
     t
   }
