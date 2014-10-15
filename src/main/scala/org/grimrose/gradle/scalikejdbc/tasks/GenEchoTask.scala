@@ -25,7 +25,7 @@ class GenEchoTask extends DefaultTask {
   def process() = {
     val adopter = ScalikeJDBCMapperGeneratorAdopter(getProject)
 
-    val gen = adopter.loadGenerator(getTableName, Option(getClassName), srcDir, testDir)
+    val gen = adopter.loadGenerator(getName, getTableName, Option(getClassName), srcDir, testDir)
     gen.foreach(g => println(g.modelAll()))
     gen.foreach(g => g.specAll().foreach(spec => println(spec)))
   }

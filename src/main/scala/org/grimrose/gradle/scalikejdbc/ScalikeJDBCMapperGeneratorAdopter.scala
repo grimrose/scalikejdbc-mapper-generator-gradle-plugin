@@ -1,6 +1,6 @@
 package org.grimrose.gradle.scalikejdbc
 
-import org.gradle.api.Project
+import org.gradle.api.{InvalidUserDataException, Project}
 import scalikejdbc.mapper.ScalikeJDBCMapperGenerator
 
 import scala.util.control.Exception._
@@ -15,11 +15,16 @@ class ScalikeJDBCMapperGeneratorAdopter(project: Project) {
     generator.loadSettings(path)
   }
 
-  def loadGenerator(tableName: String, className: Option[String], srcDir: AnyRef, testDir: AnyRef) = {
+  def loadGenerator(taskName: String, tableName: String, className: Option[String], srcDir: AnyRef, testDir: AnyRef) = {
+    if (Option(tableName).getOrElse("").isEmpty) {
+      val log = project.getLogger
+      log.error(s"Not a valid command: $taskName")
+      log.error(s"Usage: $taskName -PtableName=table_name (-PclassName=class_name)")
+      throw new InvalidUserDataException(s"$taskName: tableName is empty.")
+    }
+
     val s = targetOrDefaultDirectory(srcDir, "src/main/scala")
     val t = targetOrDefaultDirectory(testDir, "src/test/scala")
-
-    // TODO validate tableName
 
     generator.generator(tableName, className, s, t, loadSettings._1, loadSettings._2)
   }

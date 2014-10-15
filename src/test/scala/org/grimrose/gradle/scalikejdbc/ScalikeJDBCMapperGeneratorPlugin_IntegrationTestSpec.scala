@@ -11,7 +11,6 @@ import org.scalatest.{FunSpec, Matchers}
 import scalikejdbc.{ConnectionPool, DB, SQL}
 
 import scala.collection.mutable
-
 import scala.util.control.Exception._
 
 @RunWith(classOf[JUnitRunner])
@@ -44,6 +43,18 @@ class ScalikeJDBCMapperGeneratorPlugin_IntegrationTestSpec extends FunSpec with 
         actual should include("class CustomMemberGroupSpec")
       }
     }
+    it("should fail") {
+      withTempDirectory { tmp =>
+        makeBuildScript(tmp.toPath)
+        makeScalikeJDBCPropertiesFile(tmp.toPath)
+        createTables(tmp.toPath)
+
+        val actual = runTasks(tmp, Array("scalikejdbcGenEcho"), Array("-P", "tableName=")).left.toOption
+
+        actual should be(defined)
+      }
+    }
+
   }
 
   describe("scalikejdbcGen") {
