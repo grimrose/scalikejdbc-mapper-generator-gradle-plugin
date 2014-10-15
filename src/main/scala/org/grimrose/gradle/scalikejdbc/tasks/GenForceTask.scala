@@ -1,11 +1,12 @@
-package org.grimrose.gradle.scalikejdbc
+package org.grimrose.gradle.scalikejdbc.tasks
 
 import java.io.File
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.{Input, Optional, OutputDirectory, TaskAction}
+import org.grimrose.gradle.scalikejdbc.ScalikeJDBCMapperGeneratorAdopter
 
-class GenTask extends DefaultTask {
+class GenForceTask extends DefaultTask {
 
   @OutputDirectory
   var srcDir: File = _
@@ -26,8 +27,8 @@ class GenTask extends DefaultTask {
 
     val gen = adopter.loadGenerator(getTableName, Option(getClassName), srcDir, testDir)
     gen.foreach { g =>
-      g.writeModelIfNotExist()
-      g.writeSpecIfNotExist(g.specAll())
+      g.writeModel()
+      g.writeSpec(g.specAll())
     }
   }
 

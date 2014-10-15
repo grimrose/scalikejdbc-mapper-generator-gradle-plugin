@@ -1,6 +1,7 @@
 package org.grimrose.gradle.scalikejdbc
 
 import org.gradle.api.{Plugin, Project, Task}
+import org.grimrose.gradle.scalikejdbc.tasks._
 
 import scala.collection.JavaConverters._
 import scala.language.existentials
