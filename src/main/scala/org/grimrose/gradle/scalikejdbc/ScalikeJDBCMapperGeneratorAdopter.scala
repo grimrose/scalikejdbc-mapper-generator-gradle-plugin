@@ -6,7 +6,7 @@ import scalikejdbc.mapper.ScalikeJDBCMapperGenerator
 import scala.util.control.Exception._
 
 
-class ScalikeJDBCMapperGeneratorAdopter(val project: Project) {
+class ScalikeJDBCMapperGeneratorAdopter(project: Project) {
 
   val generator = new ScalikeJDBCMapperGenerator
 
@@ -33,4 +33,8 @@ class ScalikeJDBCMapperGeneratorAdopter(val project: Project) {
 
   def targetOrDefaultDirectory(target: AnyRef, defaultPath: String) = allCatch.opt(project.file(target)).getOrElse(project.file(defaultPath))
 
+}
+
+object ScalikeJDBCMapperGeneratorAdopter {
+  def apply(project: Project) = new ScalikeJDBCMapperGeneratorAdopter(project)
 }

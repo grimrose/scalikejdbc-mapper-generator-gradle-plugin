@@ -16,7 +16,7 @@ class GenAllForceTask extends DefaultTask {
 
   @TaskAction
   def process() = {
-    val adopter = new ScalikeJDBCMapperGeneratorAdopter(getProject)
+    val adopter = ScalikeJDBCMapperGeneratorAdopter(getProject)
 
     adopter.allGenerators(srcDir, testDir).foreach { g =>
       g.writeModel()
