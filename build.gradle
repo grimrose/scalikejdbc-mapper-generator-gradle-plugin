@@ -12,10 +12,6 @@ version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "")
 
 project.ext {
     jdkVersion = '1.7'
-    scalaVersion = '2.11'
-    scalaFullVersion = "${scalaVersion}.2"
-    scalikejdbcVersion = '2.1.2'
-    h2Version = '1.4.181'
 }
 
 repositories {
@@ -44,7 +40,7 @@ dependencies {
 
 }
 
-sourceCompatibility = targetCompatibility = 1.7
+sourceCompatibility = targetCompatibility = jdkVersion
 
 tasks.withType(AbstractCompile) { options.encoding = 'UTF-8' }
 tasks.withType(ScalaCompile) {
